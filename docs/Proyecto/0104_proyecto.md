@@ -100,38 +100,38 @@ Si la aplicación fallara, no sería un problema grave pero sí supondría una g
 > Dibuja las pantallas principales. A mano y fotografiado es válido.
 > Pega aquí las imágenes o indica el nombre de los archivos adjuntos.
 #### Pantalla Principal
-![Pantalla principal](res/principal.png)
+![Pantalla principal](../res/principal.png)
 > *Descripción:* En la pantalla principal encontramos el título de bienvenida. También aparece el libro actual y justo abajo los libros ya leídos junto con un botón de navegación que nos llevaría a otra pantalla.
 > También contamos con un botón que desplegaría un menú de opciones (última captura) situado arriba a la izquierda.
 
 #### Lecturas Pendientes
-![Lecturas pendientes](res/pendientes.png)
+![Lecturas pendientes](../res/pendientes.png)
 > *Descripción:* En la cabecera encontramos el título de la pantalla. Luego encontramos una barra búsqueda y la lista de libros en formato PNG/JPG.
 > En la esquina derecha inferior, encontramos un botón de acción que nos abriría la cámara y nos permitiría registrar un libro en esta pantalla por foto.
 
 #### Libros Leídos
-![Libros leídos](res/leidos.png)
+![Libros leídos](../res/leidos.png)
 > *Descripción:* En la cabecera encontramos el título de la pantalla. Volvemos a ver una barra de búsqueda y por último la lista de libros en formato PNG/JPG
 
 #### Pantalla de Reseña
-![Pantalla reseña](res/reseña.png)
+![Pantalla reseña](../res/reseña.png)
 > *Descripción:* En la cabecera encontramos el título de la pantalla. En grande nos apareceria la imagen del libro seguido de un cuadro de texto donde guardaríamos la reseña.
 > Justo debajo un sistema de valoración de estrellas.
 
 
 #### Recomendaciones
-![Recomendaciones](res/recomendaciones.png)
+![Recomendaciones](../res/recomendaciones.png)
 > *Descripción:* En la cabecera encontramos el título de la pantalla. Volvemos a encontrar una barra de búsqueda conectada a la API.
 > Por último nos encontraríamos diferentes categoría que nos mostrarían las portadas de los libros.
 
 
 #### Menú de Opciones
-![Menú de opciones](res/menu.png)
+![Menú de opciones](../res/menu.png)
 > *Descripción:* Aquí una breve explicación de donde está situado el menú despeglable de opciones y su contenido.
 >
 
 #### Pantalla de búsqueda
-![Buscar libro](res/buscar.png)
+![Buscar libro](../res/buscar.png)
 > *Descripción:* Esta pantalla nos muestra el formulario de registro de libro en caso de que fallase la búsqueda por sensor.
 ---
 
