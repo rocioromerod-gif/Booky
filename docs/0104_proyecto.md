@@ -128,6 +128,11 @@ Si la aplicación fallara, no sería un problema grave pero sí supondría una g
 #### Menú de Opciones
 ![Menú de opciones](res/menu.png)
 > *Descripción:* Aquí una breve explicación de donde está situado el menú despeglable de opciones y su contenido.
+>
+
+#### Pantalla de búsqueda
+![Buscar libro](res/buscar.png)
+> *Descripción:* Esta pantalla nos muestra el formulario de registro de libro en caso de que fallase la búsqueda por sensor.
 ---
 
 
