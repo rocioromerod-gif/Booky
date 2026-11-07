@@ -69,7 +69,7 @@ fun BookDetailScreen(
         Text(
             text = author,
             fontSize = 16.sp,
-            color = textColor.copy(alpha = 0.8f),
+            color = textColor,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
         )
