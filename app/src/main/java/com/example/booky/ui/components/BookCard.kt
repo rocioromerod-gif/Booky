@@ -56,9 +56,8 @@ fun BookCard(
                     painter = painterResource(id = imageRes),
                     contentDescription = title,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(8.dp)),
-                    contentScale = ContentScale.Crop
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Fit
                 )
 
                 // Botón de opciones

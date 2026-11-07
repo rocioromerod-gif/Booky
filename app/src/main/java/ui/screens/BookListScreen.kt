@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,7 +28,7 @@ import com.example.booky.R
 import com.example.booky.ui.components.BodoniFLF
 import com.example.booky.ui.components.Poppins
 
-// --- MODELO DE DATOS ---
+// MODELO DE DATOS
 data class BookItem(
     val id: Int,
     val title: String,
@@ -35,7 +36,7 @@ data class BookItem(
     val imageRes: Int
 )
 
-//PALETA DE COLORES
+//Paleta de colores
 private val BookyBackground = Color(0xFF272324)        // Fondo oscuro de la app
 private val BookyHeaderBg = Color(0xFFBFA484)          // Fondo beige del encabezado
 private val BookyHeaderTitle = Color(0xFF582336)       // Color del texto del título
@@ -69,14 +70,14 @@ fun BookListScreen(
                 modifier = Modifier.padding(bottom = 8.dp)
             ) {
                 FloatingActionButton(
-                    onClick = onCameraClick,
+                    onClick = { /*Por añadir*/ },
                     containerColor = BookyFabBg,
                     contentColor = Color.White,
                     shape = RoundedCornerShape(50.dp),
                     modifier = Modifier.size(64.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Add,
+                        imageVector = Icons.Default.PhotoCamera,
                         contentDescription = "Buscar por foto",
                         modifier = Modifier.size(28.dp)
                     )
@@ -128,7 +129,8 @@ fun BookListScreen(
                     Text(
                         "Buscar...",
                         color = BookySearchPlaceholder,
-                        fontSize = 15.sp
+                        fontSize = 15.sp,
+                        fontFamily = Poppins
                     )
                 },
                 leadingIcon = {
@@ -164,7 +166,7 @@ fun BookListScreen(
                     .fillMaxSize()
                     .padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 items(filteredBooks) { book ->
                     BookCard(
