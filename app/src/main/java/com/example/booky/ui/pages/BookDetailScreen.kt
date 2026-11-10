@@ -1,4 +1,4 @@
-package ui.screens
+package com.example.booky.ui.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
