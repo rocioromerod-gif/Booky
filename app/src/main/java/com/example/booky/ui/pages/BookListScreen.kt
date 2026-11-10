@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ private val BookyFabBg = Color(0xFF582336)             // Color del botón flota
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookListScreen(
-    title: String = "Lecturas\nPendientes",
+    title: String = stringResource(R.string.pending_readings),
     books: List<BookItem>,
     onBookClick: (BookItem) -> Unit,
     onCameraClick: () -> Unit
@@ -75,13 +76,13 @@ fun BookListScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.PhotoCamera,
-                        contentDescription = "Buscar por foto",
+                        contentDescription = stringResource(R.string.search_by_photo),
                         modifier = Modifier.size(28.dp)
                     )
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Buscar por foto",
+                    text = stringResource(R.string.search_by_photo),
                     color = BookyTextColor,
                     fontFamily = Poppins,
                     fontSize = 11.sp,

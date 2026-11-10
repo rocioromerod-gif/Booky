@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Booky</string>
+    <!-- BookCard -->
+        <string name="options_menu">Opciones</string>
+        <string name="mark_as_read">Marcar como leído</string>
+
+    <!-- BookListScreen -->
+        <string name="pending_readings">Lecturas&#10;Pendientes</string>
+        <string name="search_by_photo">Buscar por foto</string>
+        <string name="search_hint">Buscar...</string>
+        <string name="search_button">Buscar</string>
+
+    <!-- BookDetailScreen -->
+        <string name="cd_book_cover">Portada de %1$s</string>
+        <string name="cd_filled_star">Estrella llena</string>
+        <string name="cd_empty_star">Estrella apagada</string>
+        <string name="default_book_description">Este libro...</string>
+    <!-- Ejemplos -->
+    <string name="default_book_title">Han cantado Bingo</string>
+    <string name="default_book_author">Lana Corujo</string>
+
+
 </resources>

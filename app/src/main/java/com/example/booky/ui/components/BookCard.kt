@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -72,7 +73,7 @@ fun BookCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = "Opciones",
+                        contentDescription = stringResource(R.string.options_menu),
                         tint = Color(0xFFE1BC9E) ,
                         modifier = Modifier.size(24.dp)
                     )
@@ -84,7 +85,9 @@ fun BookCard(
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Marcar como leído") },
+                        text = {
+                            Text(text = stringResource(R.string.mark_as_read))
+                        },
                         onClick = {
                             expanded = false
                             onMarkAsReadClick() //Acción que llevará a la pantalla de reseñas

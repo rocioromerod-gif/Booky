@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,10 +26,10 @@ import com.example.booky.R
 
 @Composable
 fun BookDetailScreen(
-    title: String = "Han cantado Bingo",
-    author: String = "Lana Corujo",
+    title: String = stringResource(R.string.default_book_title),
+    author: String = stringResource(R.string.default_book_author),
     coverRes: Int = R.drawable.han_cantando_bingo,
-    description: String = "Este libro....",
+    description: String = stringResource(R.string.default_book_description),
     rating: Float = 4.5f
 ) {
     val scrollState = rememberScrollState()
@@ -50,7 +51,7 @@ fun BookDetailScreen(
 
         Image(
             painter = painterResource(id = coverRes),
-            contentDescription = "Portada de $title",
+            contentDescription = stringResource(R.string.cd_book_cover, title),
             modifier = Modifier
                 .width(200.dp)
                 .height(300.dp),
@@ -100,7 +101,7 @@ fun BookDetailScreen(
             repeat(4) {
                 Icon(
                     imageVector = Icons.Default.Star,
-                    contentDescription = "Estrella llena",
+                    contentDescription = stringResource(R.string.cd_filled_star),
                     tint = starColor,
                     modifier = Modifier.size(32.dp).padding(horizontal = 2.dp)
                 )
@@ -108,7 +109,7 @@ fun BookDetailScreen(
             // 1 Estrella apagada
             Icon(
                 imageVector = Icons.Default.Star,
-                contentDescription = "Estrella apagada",
+                contentDescription = stringResource(R.string.cd_empty_star),
                 tint = starColor.copy(alpha = 0.3f),
                 modifier = Modifier.size(32.dp).padding(horizontal = 2.dp)
             )
