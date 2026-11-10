@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.booky.R
+import com.example.booky.ui.theme.BookyTheme
 
 @Composable
 fun BookDetailScreen(
@@ -34,7 +36,7 @@ fun BookDetailScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    val backgroundColor = Color(0xFF1E1B18)
+
     val cardBackgroundColor = Color(0xFFDCC3A4)
     val textColor = Color(0xFFDCC3A4)
     val starColor = Color(0xFFE5C158)
@@ -42,7 +44,7 @@ fun BookDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(scrollState)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -62,16 +64,14 @@ fun BookDetailScreen(
 
         Text(
             text = title,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Text(
             text = author,
-            fontSize = 16.sp,
-            color = textColor,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
         )
 
@@ -80,14 +80,13 @@ fun BookDetailScreen(
                 .fillMaxWidth()
                 .height(180.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(cardBackgroundColor)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(16.dp)
         ) {
             Text(
                 text = description,
-                color = Color(0xFF2B2118),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.bodySmall
             )
         }
 
@@ -102,7 +101,7 @@ fun BookDetailScreen(
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = stringResource(R.string.cd_filled_star),
-                    tint = starColor,
+                    tint = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.size(32.dp).padding(horizontal = 2.dp)
                 )
             }
@@ -110,7 +109,7 @@ fun BookDetailScreen(
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = stringResource(R.string.cd_empty_star),
-                tint = starColor.copy(alpha = 0.3f),
+                tint = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
                 modifier = Modifier.size(32.dp).padding(horizontal = 2.dp)
             )
         }
@@ -122,5 +121,7 @@ fun BookDetailScreen(
 @Preview(showBackground = true)
 @Composable
 fun BookDetailScreenPreview() {
-    BookDetailScreen()
+    BookyTheme {
+        BookDetailScreen()
+    }
 }

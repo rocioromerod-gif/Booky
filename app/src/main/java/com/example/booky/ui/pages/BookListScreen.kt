@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,16 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.booky.ui.components.BookCard
 import com.example.booky.R
-import com.example.booky.ui.components.BodoniFLF
-import com.example.booky.ui.components.Poppins
+import com.example.booky.ui.theme.BookyTheme
 
 // MODELO DE DATOS
 data class BookItem(
@@ -33,16 +31,6 @@ data class BookItem(
     val author: String,
     val imageRes: Int
 )
-
-//Paleta de colores
-private val BookyBackground = Color(0xFF272324)        // Fondo oscuro de la app
-private val BookyHeaderBg = Color(0xFFBFA484)          // Fondo beige del encabezado
-private val BookyHeaderTitle = Color(0xFF582336)       // Color del texto del título
-private val BookySearchBarBg = Color(0xFFC8D1D9)       // Color de la barra de búsqueda
-private val BookySearchText = Color(0xFF272324)        // Texto de la barra de búsqueda
-private val BookySearchPlaceholder = Color(0xFF6B6566) // Texto de "Buscar..."
-private val BookyTextColor = Color(0xFFE1BC9E)         // Letras de título y autor
-private val BookyFabBg = Color(0xFF582336)             // Color del botón flotante
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +49,7 @@ fun BookListScreen(
     }
 
     Scaffold(
-        containerColor = BookyBackground,
+        containerColor = MaterialTheme.colorScheme.background,
         floatingActionButton = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,13 +57,13 @@ fun BookListScreen(
             ) {
                 FloatingActionButton(
                     onClick = { /*Por añadir*/ },
-                    containerColor = BookyFabBg,
-                    contentColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.primary,
                     shape = RoundedCornerShape(50.dp),
                     modifier = Modifier.size(64.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.PhotoCamera,
+                        painterResource(id = R.drawable.outline_photo_camera_24),
                         contentDescription = stringResource(R.string.search_by_photo),
                         modifier = Modifier.size(28.dp)
                     )
@@ -83,10 +71,8 @@ fun BookListScreen(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = stringResource(R.string.search_by_photo),
-                    color = BookyTextColor,
-                    fontFamily = Poppins,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
@@ -95,23 +81,21 @@ fun BookListScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(BookyBackground)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             //Encabezado superior
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(bottomStart = 36.dp, bottomEnd = 36.dp))
-                    .background(BookyHeaderBg)
+                    .background(MaterialTheme.colorScheme.primary)
                     .padding(vertical = 16.dp, horizontal = 16.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = title,
-                    color = BookyHeaderTitle,
-                    fontSize = 33.sp,
-                    fontFamily = BodoniFLF,
-                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.titleLarge,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.Center
                 )
@@ -126,16 +110,15 @@ fun BookListScreen(
                 placeholder = {
                     Text(
                         "Buscar...",
-                        color = BookySearchPlaceholder,
-                        fontSize = 15.sp,
-                        fontFamily = Poppins
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Buscar",
-                        tint = BookySearchPlaceholder
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 modifier = Modifier
@@ -144,13 +127,13 @@ fun BookListScreen(
                     .height(52.dp),
                 shape = RoundedCornerShape(26.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = BookySearchBarBg,
-                    unfocusedContainerColor = BookySearchBarBg,
-                    disabledContainerColor = BookySearchBarBg,
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
-                    focusedTextColor = BookySearchText,
-                    unfocusedTextColor = BookySearchText
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface
                 ),
                 singleLine = true
             )
@@ -182,18 +165,20 @@ fun BookListScreen(
 }
 
 //Preview de ejemplo similar a el diseño de canva
-@Preview(showBackground = true, backgroundColor = 0xFF272324)
+@Preview(showBackground = true)
 @Composable
 fun BookListScreenPreview() {
-    val sampleBooks = listOf(
-        BookItem(1, "El pozo de la ascensión", "Brandon Sanderson", R.drawable.pozo_ascension),
-        BookItem(2, "Corona de medianoche", "Sarah J. Maas", R.drawable.tog)
-    )
+    BookyTheme {
+        val sampleBooks = listOf(
+            BookItem(1, "El pozo de la ascensión", "Brandon Sanderson", R.drawable.pozo_ascension),
+            BookItem(2, "Corona de medianoche", "Sarah J. Maas", R.drawable.tog)
+        )
 
-    BookListScreen(
-        title = "Lecturas\nPendientes",
-        books = sampleBooks,
-        onBookClick = {},
-        onCameraClick = {}
-    )
+        BookListScreen(
+            title = "Lecturas\nPendientes",
+            books = sampleBooks,
+            onBookClick = {},
+            onCameraClick = {}
+        )
+    }
 }

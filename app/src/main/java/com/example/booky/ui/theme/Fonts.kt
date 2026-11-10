@@ -1,4 +1,4 @@
-package com.example.booky.ui.components
+package com.example.booky.ui.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
