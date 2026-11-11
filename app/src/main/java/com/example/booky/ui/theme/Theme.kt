@@ -29,7 +29,7 @@ val BookyTypography = Typography(
     bodySmall = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 12.sp,
         textAlign = TextAlign.Center
     ),
     titleLarge = TextStyle(

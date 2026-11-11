@@ -19,19 +19,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.booky.R
 import com.example.booky.ui.theme.BookyTheme
 
+data class BookCardUiState(
+    val id: Int = 0,
+    val title: String,
+    val author: String,
+    val imageRes: Int,
+    val onMarkAsReadClick: () -> Unit = {}
+)
 
 @Composable
 fun BookCard(
-    title: String,
-    author: String,
-    imageRes: Int,
-    onMarkAsReadClick: () -> Unit
+    state: BookCardUiState,
+    modifier: Modifier = Modifier
 ) {
 
     var expanded by remember { mutableStateOf(false) }
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .width(140.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
@@ -47,8 +52,8 @@ fun BookCard(
             ) {
                 // Portada del libro
                 Image(
-                    painter = painterResource(id = imageRes),
-                    contentDescription = title,
+                    painter = painterResource(id = state.imageRes),
+                    contentDescription = state.title,
                     modifier = Modifier
                         .fillMaxSize(),
                     contentScale = ContentScale.Fit
@@ -59,8 +64,8 @@ fun BookCard(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .offset(x = 8.dp, y = (-8.dp))
-                        .size(30.dp)
-                        .clickable { /* Acción del menú */ },
+                        .size(40.dp)
+                        .clickable { expanded = true },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -71,7 +76,7 @@ fun BookCard(
                     )
                 }
 
-                // Menú contextual con la opción Marcar como leído
+                // Menú con la opción Marcar como leído
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
@@ -82,7 +87,7 @@ fun BookCard(
                         },
                         onClick = {
                             expanded = false
-                            onMarkAsReadClick() //Acción que llevará a la pantalla de reseñas
+                            state.onMarkAsReadClick() //Acción que llevará a la pantalla de reseñas
                         }
                     )
                 }
@@ -92,16 +97,16 @@ fun BookCard(
 
             // Título del libro
             Text(
-                text = title,
+                text = state.title,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.bodyLarge
             )
 
             // Autor del libro
             Text(
-                text = author,
+                text = state.author,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodySmall
@@ -111,17 +116,17 @@ fun BookCard(
 }
 
 //Preview de ejemplo similar a el diseño de canva
-@Preview(showBackground = true, backgroundColor = 0xFF1C1816)
+@Preview(showBackground = true, backgroundColor = 0xFF1E1B18)
 @Composable
 fun BookCardPreview() {
     BookyTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            BookCard(
+        BookCard(
+            state = BookCardUiState(
                 title = "Han cantado Bingo",
                 author = "Lana Corujo",
                 imageRes = R.drawable.han_cantando_bingo,
                 onMarkAsReadClick = {}
             )
-        }
+        )
     }
 }
