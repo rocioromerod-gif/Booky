@@ -20,8 +20,10 @@ import com.example.booky.ui.components.BookCard
 import com.example.booky.R
 import com.example.booky.ui.components.BookCardUiState
 import com.example.booky.ui.components.BookSearchBar
+import com.example.booky.ui.components.CameraButton
 import com.example.booky.ui.components.SearchBarUiState
 import com.example.booky.ui.theme.BookyTheme
+import androidx.compose.foundation.layout.padding
 
 // MODELO DE DATOS
 data class BookItem(
@@ -47,9 +49,19 @@ fun BookListScreen(
         it.title.contains(searchQuery, ignoreCase = true) ||
                 it.author.contains(searchQuery, ignoreCase = true)
     }
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        floatingActionButton = {
+            CameraButton(
+                onClick = onCameraClick,
+                modifier = Modifier.padding(end = 14.dp, bottom = 12.dp,)
+            )
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
             //Encabezado superior
@@ -104,6 +116,7 @@ fun BookListScreen(
             }
         }
     }
+}
 
 
 //Preview de ejemplo similar a el diseño de canva

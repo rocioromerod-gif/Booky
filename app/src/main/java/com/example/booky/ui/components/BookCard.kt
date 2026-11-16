@@ -40,7 +40,7 @@ fun BookCard(
             .width(140.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface) // Tono oscuro cálido acorde a Booky
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier.padding(8.dp)

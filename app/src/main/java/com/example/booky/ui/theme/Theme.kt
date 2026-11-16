@@ -10,11 +10,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 private val BookyColorScheme = darkColorScheme(
-    primary = BookyHeaderBg,  // El beige de los encabezados
+    primary = BookyHeaderBg,  // Beige general
     onPrimary = BookyHeaderTitle,   // El color del texto del título
     background = BookyBackground,  // El fondo oscuro general
     onBackground = BookyTextColor,  // Las letras de título y autor
-    surface = BookyBackground,   //Color tarjeta
     onSurface = BookyTextColor, // El texto dentro de la tarjeta
     secondary = BookyFabBg,   // El color del botón de cámara
     tertiary = BookyStars   //Color de las estrellas

@@ -23,6 +23,7 @@ import com.example.booky.ui.pages.BookListScreen
 import com.example.booky.ui.theme.BookyTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.booky.ui.components.CameraButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,19 +49,12 @@ fun BookyNavGraph() {
     // FAB
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            CameraButton(
                 onClick = { /* Acción de la cámara */ },
-                containerColor = MaterialTheme.colorScheme.secondary,
-                contentColor = MaterialTheme.colorScheme.primary
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.outline_photo_camera_24),
-                    contentDescription = stringResource(R.string.search_by_photo)
-                )
-            }
+            )
         }
-    ) { innerPadding ->
 
+    ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = "bookList",
@@ -113,4 +107,5 @@ fun BookyNavGraph() {
         }
     }
 }
+
 

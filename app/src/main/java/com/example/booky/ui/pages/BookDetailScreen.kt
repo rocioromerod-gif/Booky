@@ -104,7 +104,6 @@ fun BookDetailScreen(
 @Composable
 fun BookDetailScreenPreview() {
     BookyTheme {
-        // En la preview declaramos un estado temporal para que se pueda probar visualmente
         var previewReview by remember { mutableStateOf("") }
 
         BookDetailScreen(
