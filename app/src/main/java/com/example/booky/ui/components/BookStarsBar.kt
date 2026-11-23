@@ -39,9 +39,9 @@ fun BookStarsBar(
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = if (isSelected) {
-                        stringResource(R.string.cd_filled_star)
+                        stringResource(R.string.estrella_llena)
                     } else {
-                        stringResource(R.string.cd_empty_star)
+                        stringResource(R.string.estrella_apagada)
                     },
 
                     tint = if (isSelected) {

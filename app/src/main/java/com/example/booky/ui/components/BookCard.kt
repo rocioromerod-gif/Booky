@@ -1,5 +1,6 @@
 package com.example.booky.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,17 +20,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.booky.R
 import com.example.booky.ui.theme.BookyTheme
 
-data class BookCardUiState(
+data class BookCardData(
     val id: Int = 0,
-    val title: String,
-    val author: String,
-    val imageRes: Int,
+    val titulo: String,
+    val autor: String,
+    @DrawableRes val imagen: Int,
     val onMarkAsReadClick: () -> Unit = {}
 )
 
 @Composable
 fun BookCard(
-    state: BookCardUiState,
+    data: BookCardData,
     modifier: Modifier = Modifier
 ) {
 
@@ -52,8 +53,8 @@ fun BookCard(
             ) {
                 // Portada del libro
                 Image(
-                    painter = painterResource(id = state.imageRes),
-                    contentDescription = state.title,
+                    painter = painterResource(data.imagen),
+                    contentDescription = data.titulo,
                     modifier = Modifier
                         .fillMaxSize(),
                     contentScale = ContentScale.Fit
@@ -63,16 +64,16 @@ fun BookCard(
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .offset(x = 8.dp, y = (-8.dp))
-                        .size(40.dp)
+                        .offset(x = 12.dp, y = (-8.dp))
+                        .size(48.dp)
                         .clickable { expanded = true },
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.CenterEnd
                 ) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = stringResource(R.string.options_menu),
+                        contentDescription = stringResource(R.string.opciones),
                         tint = MaterialTheme.colorScheme.primary ,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(32.dp)
                     )
                 }
 
@@ -83,11 +84,11 @@ fun BookCard(
                 ) {
                     DropdownMenuItem(
                         text = {
-                            Text(text = stringResource(R.string.mark_as_read))
+                            Text(text = stringResource(R.string.marcar_como_leído))
                         },
                         onClick = {
                             expanded = false
-                            state.onMarkAsReadClick() //Acción que llevará a la pantalla de reseñas
+                            data.onMarkAsReadClick() //Acción que llevará a la pantalla de reseñas
                         }
                     )
                 }
@@ -97,7 +98,7 @@ fun BookCard(
 
             // Título del libro
             Text(
-                text = state.title,
+                text = data.titulo,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
@@ -106,7 +107,7 @@ fun BookCard(
 
             // Autor del libro
             Text(
-                text = state.author,
+                text = data.autor,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodySmall
@@ -121,10 +122,11 @@ fun BookCard(
 fun BookCardPreview() {
     BookyTheme {
         BookCard(
-            state = BookCardUiState(
-                title = "Han cantado Bingo",
-                author = "Lana Corujo",
-                imageRes = R.drawable.han_cantando_bingo,
+            data = BookCardData(
+                id = 1,
+                titulo = "Han cantado Bingo",
+                autor = "Lana Corujo",
+                imagen = R.drawable.han_cantando_bingo,
                 onMarkAsReadClick = {}
             )
         )

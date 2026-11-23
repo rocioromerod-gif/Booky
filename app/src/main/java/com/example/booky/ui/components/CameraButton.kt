@@ -1,5 +1,6 @@
 package com.example.booky.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,34 +20,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.booky.R
 
+data class CameraButtonUIState(
+    @DrawableRes val icono: Int = R.drawable.outline_photo_camera_24,
+    val texto: String = "",
+    val onClick: () -> Unit = {}
+)
 @Composable
 fun CameraButton (
-    onClick: () -> Unit,
+    state: CameraButtonUIState = CameraButtonUIState(),
     modifier: Modifier = Modifier
 ) {
     Column(
-        horizontalAlignment = Alignment.End,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
         FloatingActionButton(
-            onClick = onClick,
+            onClick = state.onClick,
             modifier = modifier,
             containerColor = MaterialTheme.colorScheme.secondary,
             contentColor = MaterialTheme.colorScheme.primary
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.outline_photo_camera_24),
-                contentDescription = stringResource(R.string.search_by_photo),
+                contentDescription = stringResource(R.string.buscar_por_foto),
                 modifier = Modifier
                 .size(54.dp)
-                .padding(top = 12.dp, bottom = 12.dp),
+                .padding(12.dp),
             )
         }
 
-        Spacer(modifier = Modifier.height(2.dp))
-
         Text(
-            text = stringResource(id = R.string.search_by_photo),
+            text = stringResource(id = R.string.buscar_por_foto),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground
         )

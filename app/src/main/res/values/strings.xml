@@ -1,24 +1,25 @@
 <resources>
-    <string name="app_name">Booky</string>
+    <string name="nombre_app">Booky</string>
     <!-- BookCard -->
-        <string name="options_menu">Opciones</string>
-        <string name="mark_as_read">Marcar como leído</string>
+        <string name="opciones">Opciones</string>
+        <string name="marcar_como_leído">Marcar como leído</string>
 
     <!-- BookListScreen -->
-        <string name="pending_readings">Lecturas&#10;Pendientes</string>
-        <string name="search_by_photo">Buscar por foto</string>
-        <string name="search_text">Buscar...</string>
-        <string name="search_button">Buscar</string>
+        <string name="lecturas_pendientes">Lecturas Pendientes</string>
+        <string name="buscar_por_foto">Buscar por foto</string>
+        <string name="buscar">Buscar...</string>
+        <string name="boton_busqueda">Buscar</string>
 
     <!-- BookDetailScreen -->
-        <string name="cd_book_cover">Portada de %1$s</string>
-        <string name="cd_filled_star">Estrella llena</string>
-        <string name="cd_empty_star">Estrella apagada</string>
-        <string name="star_description">Valorar con %d estrellas</string>
-        <string name="default_book_description">Este libro...</string>
-    <!-- Ejemplos -->
-    <string name="default_book_title">Han cantado Bingo</string>
-    <string name="default_book_author">Lana Corujo</string>
+        <string name="portada">Portada</string>
+        <string name="titulo">Titulo</string>
+        <string name="autor">Autor</string>
+        <string name="reseña">Reseña</string>
+
+    <!-- Estrellas -->
+    <string name="estrella_llena">Estrella llena</string>
+    <string name="estrella_apagada">Estrella apagada</string>
+    <string name="des_estrella">Valorar con %d estrellas</string>
 
 
 </resources>

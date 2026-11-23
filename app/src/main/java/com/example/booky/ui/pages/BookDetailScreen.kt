@@ -1,5 +1,7 @@
 package com.example.booky.ui.pages
 
+import android.R.attr.rating
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,19 +24,27 @@ import com.example.booky.R
 import com.example.booky.ui.components.RatingBarUiState
 import com.example.booky.ui.theme.BookyTheme
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.booky.ui.components.BookReview
 import com.example.booky.ui.components.BookReviewUiState
 import com.example.booky.ui.components.BookStarsBar
+import com.example.booky.viewmodel.BookyDetailVMl
 
+data class BookyDetailData(
+    val id: Int,
+    @DrawableRes val imagen: Int,
+    val titulo: String,
+    val autor: String,
+    val reseña: String = "",
+    val estrellas : Int = 0
+)
 @Composable
 fun BookDetailScreen(
-    title: String = stringResource(R.string.default_book_title),
-    author: String = stringResource(R.string.default_book_author),
-    coverRes: Int = R.drawable.han_cantando_bingo,
-    description: String = stringResource(R.string.default_book_description),
-    rating: Float = 4.5f,
-    reviewText: String,
-    onReviewChanged: (String) -> Unit
+    data: BookyDetailData,
+  modifier : Modifier = Modifier,
+  vm: BookyDetailVMl = viewModel(),
+  onReviewChanged: (String) -> Unit = {},
+  onRatingChanged: (Int) -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
 
@@ -49,8 +59,8 @@ fun BookDetailScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Image(
-            painter = painterResource(id = coverRes),
-            contentDescription = stringResource(R.string.cd_book_cover, title),
+            painter = painterResource(data.imagen),
+            contentDescription = stringResource(R.string.portada),
             modifier = Modifier
                 .width(200.dp)
                 .height(300.dp),
@@ -60,22 +70,23 @@ fun BookDetailScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = title,
+            text = data.titulo,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
 
         Text(
-            text = author,
+            text = data.autor,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
         )
 
         // Componente de reseña
+
         BookReview(
             state = BookReviewUiState(
-                reviewText = reviewText,
+                reviewText = data.reseña,
                 onReviewChanged = onReviewChanged,
                 placeholder = "Este libro..."
             )
@@ -105,10 +116,19 @@ fun BookDetailScreen(
 fun BookDetailScreenPreview() {
     BookyTheme {
         var previewReview by remember { mutableStateOf("") }
+        var previewRating by remember { mutableStateOf(4) }
 
         BookDetailScreen(
-            reviewText = previewReview,
-            onReviewChanged = { previewReview = it }
+            data = BookyDetailData(
+                id = 1,
+                imagen = R.drawable.han_cantando_bingo,
+                titulo = "Han cantado Bingo",
+                autor = "Lana Corujo",
+                reseña = previewReview,
+                estrellas = previewRating
+            ),
+            onReviewChanged = { previewReview = it },
+            onRatingChanged = { previewRating = it }
         )
     }
 }

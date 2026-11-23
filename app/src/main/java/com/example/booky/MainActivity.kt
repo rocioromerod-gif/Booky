@@ -5,25 +5,28 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.booky.ui.pages.BookDetailScreen
-import com.example.booky.ui.pages.BookItem
-import com.example.booky.ui.pages.BookListScreen
-import com.example.booky.ui.theme.BookyTheme
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import com.example.booky.ui.components.CameraButton
+import com.example.booky.ui.pages.BookDetailScreen
+import com.example.booky.ui.pages.BookListScreen
+import com.example.booky.ui.pages.BookyDetailData
+import com.example.booky.ui.theme.BookyTheme
+import com.example.booky.viewmodel.BookyDetailVMl
+import androidx.compose.runtime.getValue
+import com.example.booky.ui.components.CameraButtonUIState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,65 +46,59 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BookyNavGraph() {
-
     val navController = rememberNavController()
 
-    // FAB
     Scaffold(
         floatingActionButton = {
             CameraButton(
-                onClick = { /* Acción de la cámara */ },
+                state = CameraButtonUIState(
+                    onClick = { /* Acción de la cámara */ }
+                )
             )
         }
-
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "bookList",
+            startDestination = "listaLibros",
             modifier = Modifier.padding(innerPadding)
         ) {
             // Lista de libros
-            composable("bookList") {
-                var searchQuery by remember { mutableStateOf("") }
-
-                val sampleBooks = listOf(
-                    BookItem(
-                        1,
-                        "El pozo de la ascensión",
-                        "Brandon Sanderson",
-                        R.drawable.pozo_ascension
-                    ),
-                    BookItem(2, "Corona de medianoche", "Sarah J. Maas", R.drawable.tog),
-                    BookItem(3, "Han cantado Bingo", "Lana Corujo", R.drawable.han_cantando_bingo)
-                )
-
+            composable("listaLibros") {
                 BookListScreen(
-                    title = stringResource(R.string.pending_readings),
-                    books = sampleBooks,
-                    searchQuery = searchQuery,
-                    onSearchQueryChange = { searchQuery = it },
-                    onBookClick = { book ->
-                        navController.navigate("bookDetail/${book.title}")
+                    onNavigateToDetail = { bookId ->
+                        navController.navigate("bookDetail/$bookId")
                     },
-                    onCameraClick = { }
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
 
             // Pantalla de detalle del libro
             composable(
-                route = "bookDetail/{bookTitle}",
-                arguments = listOf(navArgument("bookTitle") { type = NavType.StringType })
+                route = "bookDetail/{bookId}",
+                arguments = listOf(navArgument("bookId") { type = NavType.IntType })
             ) { backStackEntry ->
-                val bookTitle = backStackEntry.arguments?.getString("bookTitle") ?: "Libro"
+                val bookId = backStackEntry.arguments?.getInt("bookId") ?: 0
+                val vm: BookyDetailVMl = viewModel()
+                val state by vm.uiState.collectAsState()
 
-                var reviewTextState by remember { mutableStateOf("") }
+                LaunchedEffect(bookId) {
+                    vm.load(bookId)
+                }
+
+                val libro = state.libro
+                val detailData = BookyDetailData(
+                    id = libro?.id ?: bookId,
+                    imagen = libro?.imagen ?: R.drawable.han_cantando_bingo,
+                    titulo = libro?.titulo ?: stringResource(R.string.titulo),
+                    autor = libro?.autor ?: stringResource(R.string.autor),
+                    reseña = state.textoReview,
+                    estrellas = 4
+                )
 
                 BookDetailScreen(
-                    title = bookTitle,
-                    reviewText = reviewTextState,
-                    onReviewChanged = { newText ->
-                        reviewTextState = newText
-                    }
+                    data = detailData,
+                    modifier = Modifier.fillMaxSize(),
+                    onReviewChanged = { newText -> vm.onReviewChanged(newText) }
                 )
             }
         }

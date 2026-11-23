@@ -32,7 +32,7 @@ fun BookSearchBar(
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
-                text= stringResource(R.string.search_text),
+                text= stringResource(R.string.buscar),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyLarge
             )
@@ -40,7 +40,7 @@ fun BookSearchBar(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = stringResource(R.string.search_button),
+                contentDescription = stringResource(R.string.buscar),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
