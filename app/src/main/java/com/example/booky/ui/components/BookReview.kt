@@ -37,9 +37,7 @@ fun BookReview(
         },
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color(0xFFD3C2A5),
-            unfocusedContainerColor = Color(0xFFD3C2A5),
             focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.primary
         )
     )
 }
