@@ -36,7 +36,7 @@ data class BookModel(
 
 enum class GeneroLibro {
     FANTASIA,
-    CIENCIA_FICCION,
+    FICCION,
     ROMANCE,
     TERROR,
     MISTERIO
