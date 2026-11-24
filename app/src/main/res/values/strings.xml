@@ -21,5 +21,25 @@
     <string name="estrella_apagada">Estrella apagada</string>
     <string name="des_estrella">Valorar con %d estrellas</string>
 
+    <!-- Formulario -->
+    <string name="genero_fantasia">Fantasía</string>
+    <string name="error_correo_vacio">El correo no puede estar vacío</string>
+    <string name="error_correo_invalido">Correo inválido, intente de nuevo</string>
+    <string name="error_contrasena_vacia">La contraseña no puede estar vacía</string>
+    <string name="error_contrasena">La contraseña debe tener al menos 8 caracteres, una mayúsula y un símbolo</string>
+    <string name="error_terminos_no_aceptados">Por favor, acepta los términos</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="genero_favorito">Elige tu género favorito</string>
+    <string name="version">Versión 1.0</string>
+    <string name="todos_los_libros">Todos los libros</string>
+    <string name="libros_favoritos">Libros favoritos</string>
+    <string name="ok">Ok</string>
+    <string name="tab_snackbar">Pestaña: %1$s</string>
+    <string name="volver">Volver</string>
+    <string name="terminos">Términos y condiciones de uso</string>
+    <string name="registrarme">Entrar</string>
+    <string name="bienvenido">Bienvenido a Booky</string>
+
 
 </resources>

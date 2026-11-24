@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
@@ -24,8 +23,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.booky.R
 import com.example.booky.seeder.BookModel
 import com.example.booky.ui.components.BookCardData
-import com.example.booky.ui.components.CameraButton
-import com.example.booky.ui.components.CameraButtonUIState
 import com.example.booky.viewmodel.BookyListVMl
 
 
@@ -37,7 +34,7 @@ var listaLibros = listOf<BookCardData>()
 @Composable
 fun BookListScreen(
     vm: BookyListVMl = viewModel(),
-    onNavigateToDetail: (Int) -> Unit = {},
+    onBookClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
     onCameraClick: () -> Unit = {}
 ) {
@@ -59,16 +56,16 @@ fun BookListScreen(
                 .background(MaterialTheme.colorScheme.background)
         ) {
             // Encabezado superior
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(bottomStart = 36.dp, bottomEnd = 36.dp))
                     .background(MaterialTheme.colorScheme.primary)
                     .padding(vertical = 30.dp, horizontal = 16.dp),
-                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = stringResource(R.string.lecturas_pendientes),
+                    Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.titleLarge,
                     lineHeight = 36.sp,
@@ -103,20 +100,12 @@ fun BookListScreen(
                     BookCard(
                         data = bookModel2BookCard(
                             bm = libro,
-                            onMarkAsReadClick = { onNavigateToDetail(libro.id) }
+                            onMarkAsReadClick = { onBookClick(libro.id) }
                         )
                     )
                 }
             }
         }
-        CameraButton(
-            state = CameraButtonUIState(
-                onClick = onCameraClick
-            ),
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        )
     }
 }
 

@@ -1,18 +1,27 @@
 package com.example.booky.ui.pages
 
-import android.R.attr.rating
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -20,46 +29,53 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.booky.R
-import com.example.booky.ui.components.RatingBarUiState
-import com.example.booky.ui.theme.BookyTheme
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.booky.R
 import com.example.booky.ui.components.BookReview
 import com.example.booky.ui.components.BookReviewUiState
 import com.example.booky.ui.components.BookStarsBar
+import com.example.booky.ui.components.RatingBarUiState
+import com.example.booky.ui.theme.BookyTheme
 import com.example.booky.viewmodel.BookyDetailVMl
 
-data class BookyDetailData(
-    val id: Int,
-    @DrawableRes val imagen: Int,
-    val titulo: String,
-    val autor: String,
-    val reseña: String = "",
-    val estrellas : Int = 0
-)
 @Composable
 fun BookDetailScreen(
-    data: BookyDetailData,
-  modifier : Modifier = Modifier,
-  vm: BookyDetailVMl = viewModel(),
-  onReviewChanged: (String) -> Unit = {},
-  onRatingChanged: (Int) -> Unit = {},
+    id: Int,
+    onGoBack: () -> Unit = {},
+    vm: BookyDetailVMl = viewModel(),
+    modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
+    val state by vm.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        vm.load(id)
+    }
+
+    if (state.libro == null) {
+        Text(
+            text = "Cargando...",
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = modifier.padding(16.dp)
+        )
+        return
+    }
+
+    val libro = state.libro!!
+    var currentReview by remember(libro.id) { mutableStateOf(state.textoReview) }
+    var currentRating by remember(libro.id) { mutableStateOf(state.rating) }
 
     Column(
-        modifier = Modifier
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(scrollState)
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(24.dp)
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
-
         Image(
-            painter = painterResource(data.imagen),
+            painter = painterResource(libro.imagen),
             contentDescription = stringResource(R.string.portada),
             modifier = Modifier
                 .width(200.dp)
@@ -67,47 +83,45 @@ fun BookDetailScreen(
             contentScale = ContentScale.Fit
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Text(
-            text = data.titulo,
+            text = libro.titulo,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
 
         Text(
-            text = data.autor,
+            text = libro.autor,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
+            color = MaterialTheme.colorScheme.onBackground
         )
-
-        // Componente de reseña
 
         BookReview(
             state = BookReviewUiState(
-                reviewText = data.reseña,
-                onReviewChanged = onReviewChanged,
-                placeholder = "Este libro..."
+                reviewText = currentReview,
+                onReviewChanged = { nuevoTexto ->
+                    currentReview = nuevoTexto
+                },
             )
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Componente de las estrellas
-        var currentBookRating by remember { mutableStateOf(rating.toInt()) }
-
         BookStarsBar(
             state = RatingBarUiState(
-                rating = currentBookRating.toInt(),
+                rating = currentRating,
                 onRatingChanged = { newRating ->
-                    currentBookRating = newRating.toInt()
+                    currentRating = newRating
                 }
             ),
             modifier = Modifier.padding(vertical = 8.dp)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onGoBack) {
+            Text(
+                text = stringResource(R.string.volver),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -115,20 +129,6 @@ fun BookDetailScreen(
 @Composable
 fun BookDetailScreenPreview() {
     BookyTheme {
-        var previewReview by remember { mutableStateOf("") }
-        var previewRating by remember { mutableStateOf(4) }
-
-        BookDetailScreen(
-            data = BookyDetailData(
-                id = 1,
-                imagen = R.drawable.han_cantando_bingo,
-                titulo = "Han cantado Bingo",
-                autor = "Lana Corujo",
-                reseña = previewReview,
-                estrellas = previewRating
-            ),
-            onReviewChanged = { previewReview = it },
-            onRatingChanged = { previewRating = it }
-        )
+        BookDetailScreen(id = 1, onGoBack = {})
     }
 }

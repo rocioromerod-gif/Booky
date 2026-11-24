@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.booky.ui.theme.BookyTextColor
+import com.example.booky.ui.theme.BookyTitleColor
 
 data class BookReviewUiState(
     val reviewText: String,
@@ -27,17 +29,20 @@ fun BookReview(
             .height(180.dp),
         shape = RoundedCornerShape(16.dp),
         textStyle = LocalTextStyle.current.copy(
-            color = Color(0xFF582336)
+            color = MaterialTheme.colorScheme.primary
         ),
         placeholder = {
             Text(
                 text = state.placeholder,
-                color = Color(0xFF582336)
+                color = MaterialTheme.colorScheme.onPrimary
             )
         },
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color(0xFFD3C2A5),
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            focusedContainerColor = MaterialTheme.colorScheme.primary,
+            unfocusedContainerColor = MaterialTheme.colorScheme.primary,
+            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+            cursorColor = MaterialTheme.colorScheme.onPrimary,
         )
     )
 }

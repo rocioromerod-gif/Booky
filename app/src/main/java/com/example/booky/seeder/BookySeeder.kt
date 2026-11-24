@@ -33,3 +33,11 @@ data class BookModel(
     val autor : String,
     @DrawableRes val imagen : Int,
 )
+
+enum class GeneroLibro {
+    FANTASIA,
+    CIENCIA_FICCION,
+    ROMANCE,
+    TERROR,
+    MISTERIO
+}
