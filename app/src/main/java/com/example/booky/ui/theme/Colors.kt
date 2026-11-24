@@ -10,3 +10,5 @@ val BookySearchText = Color(0xFF6B6566) // Texto de "Buscar..."
 val BookyTextColor = Color(0xFFE1BC9E)  // Letras de título y autor
 val BookyFabBg = Color(0xFF582336)  // Color del botón cámara
 val BookyStars = Color(0xFFE5C158)  //Color estrellas
+
+val BookyFormFont = Color(0xFF89AC76) //Color verde

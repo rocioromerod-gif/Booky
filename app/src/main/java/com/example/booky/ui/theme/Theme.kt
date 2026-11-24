@@ -3,6 +3,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -17,7 +18,8 @@ private val BookyColorScheme = darkColorScheme(
     secondary = BookyFabBg,   // El color del botón de cámara
     tertiary = BookyStars,   //Color de las estrellas
     surfaceVariant = BookySearchBarBg, //Color de la barra de búsqueda
-    onSurfaceVariant = BookySearchText //Color del texto de la barra de búsqueda
+    onSurfaceVariant = BookySearchText, //Color del texto de la barra de búsqueda
+    onTertiary = Color(0xFF89AC76)
 
 )
 

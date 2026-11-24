@@ -1,5 +1,5 @@
 <resources>
-    <string name="nombre_app">Booky</string>
+    <string name="app_name">Booky</string>
     <!-- BookCard -->
         <string name="opciones">Opciones</string>
         <string name="marcar_como_leído">Marcar como leído</string>

@@ -30,7 +30,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -64,6 +63,8 @@ fun BookFormScreen(
             .verticalScroll(rememberScrollState())
             .padding(24.dp),
     ) {
+        Spacer(modifier = Modifier.height(38.dp))
+
             Text(
                 text = stringResource(R.string.bienvenido),
                 style = MaterialTheme.typography.titleLarge,
@@ -75,7 +76,10 @@ fun BookFormScreen(
         OutlinedTextField(
             value = state.email,
             onValueChange = vm::onEmailChange,
-            label = { Text(stringResource(R.string.correo)) },
+            label = { Text(
+                text = stringResource(R.string.correo),
+                color = MaterialTheme.colorScheme.onTertiary
+                ) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
@@ -91,7 +95,10 @@ fun BookFormScreen(
         OutlinedTextField(
             value = state.password,
             onValueChange = vm::onPasswordChange,
-            label = { Text(stringResource(R.string.contrasena)) },
+            label = { Text(
+                text = stringResource(R.string.contrasena),
+                color = MaterialTheme.colorScheme.onTertiary
+                ) },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             //Opcion para que no se vea la contraseña
@@ -113,7 +120,10 @@ fun BookFormScreen(
             OutlinedTextField(
                 value = state.genero.name,
                 onValueChange = {},
-                label = { Text(stringResource(R.string.genero_favorito)) },
+                label = { Text(
+                    text = stringResource(R.string.genero_favorito),
+                    color = MaterialTheme.colorScheme.onTertiary
+                    ) },
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(state.expanded) },
                 modifier = Modifier
@@ -147,7 +157,7 @@ fun BookFormScreen(
                 Text(
                     text = stringResource(R.string.terminos),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             state.errorTerminos?.let {
@@ -168,10 +178,10 @@ fun BookFormScreen(
 
             enabled = state.isValid,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFE5C158),
+                containerColor = MaterialTheme.colorScheme.onTertiary,
                 contentColor = Color(0xFF272324),
-                disabledContainerColor = Color(0xFFE5C158).copy(alpha = 0.3f),
-                disabledContentColor = Color(0xFFE1BC9E).copy(alpha = 0.55f)
+                disabledContainerColor = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.3f),
+                disabledContentColor = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.55f)
             ),
             modifier = Modifier
                 .fillMaxWidth()
