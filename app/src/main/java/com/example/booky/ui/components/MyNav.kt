@@ -23,9 +23,14 @@ fun MyNav(nav: NavHostController){
         navController = nav,
         startDestination = RutaBookForm
     ){
-        composable<RutaBookList>{
-            BookListScreen (
-                onBookClick = {nav.navigate(RutaBookDetail(id))})
+        composable<RutaBookList> {
+            AppScaffold {
+                BookListScreen(
+                    onBookClick = { id->
+                        nav.navigate(RutaBookDetail(identificador = id))
+                    }
+                )
+            }
         }
 
         composable<RutaBookForm> {

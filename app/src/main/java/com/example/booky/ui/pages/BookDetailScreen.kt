@@ -12,16 +12,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -43,6 +39,7 @@ fun BookDetailScreen(
     id: Int,
     onGoBack: () -> Unit = {},
     vm: BookyDetailVMl = viewModel(),
+    //Dentro de cada pagina se debe llamar al vm correspondiente
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -52,6 +49,7 @@ fun BookDetailScreen(
         vm.load(id)
     }
 
+    //Si aún no cargo el libro, sale un pequeño texto
     if (state.libro == null) {
         Text(
             text = "Cargando...",
@@ -62,9 +60,8 @@ fun BookDetailScreen(
     }
 
     val libro = state.libro!!
-    var currentReview by remember(libro.id) { mutableStateOf(state.textoReview) }
-    var currentRating by remember(libro.id) { mutableStateOf(state.rating) }
 
+    //Toda la pag va dentro de un column
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -95,20 +92,23 @@ fun BookDetailScreen(
             color = MaterialTheme.colorScheme.onBackground
         )
 
+        //Componente bookrv
         BookReview(
             state = BookReviewUiState(
-                reviewText = currentReview,
+                reviewText = state.textoReview,
+                //Esto cambia el texto si se modifica la reseña
                 onReviewChanged = { nuevoTexto ->
-                    currentReview = nuevoTexto
+                    vm.onReviewChanged(nuevoTexto)
                 },
             )
         )
 
+        //Componente de valoracion por estrellas
         BookStarsBar(
             state = RatingBarUiState(
-                rating = currentRating,
+                rating = state.rating,
                 onRatingChanged = { newRating ->
-                    currentRating = newRating
+                    vm.onRatingChanged(newRating)
                 }
             ),
             modifier = Modifier.padding(vertical = 8.dp)

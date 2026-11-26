@@ -34,10 +34,15 @@ data class BookModel(
     @DrawableRes val imagen : Int,
 )
 
-enum class GeneroLibro {
-    FANTASIA,
-    FICCION,
-    ROMANCE,
-    TERROR,
-    MISTERIO
+enum class GeneroLibro (val etiquetaGenero: String) {
+    FANTASIA("Fantasía"),
+    FICCION ("Ficción"),
+    ROMANCE("Romance"),
+    TERROR("Terror"),
+    MISTERIO("Misterio")
+}
+
+enum class TipoPerfil(val etiquetaPerfil: String) {
+    LECTOR("Lector"),
+    CLUB("Club")
 }

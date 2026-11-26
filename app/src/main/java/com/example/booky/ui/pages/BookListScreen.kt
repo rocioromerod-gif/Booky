@@ -18,11 +18,15 @@ import com.example.booky.ui.components.BookSearchBar
 import com.example.booky.ui.components.SearchBarUiState
 import com.example.booky.ui.theme.BookyTheme
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.booky.R
 import com.example.booky.seeder.BookModel
+import com.example.booky.ui.components.AppScaffold
 import com.example.booky.ui.components.BookCardData
+import com.example.booky.ui.components.CameraButton
+import com.example.booky.ui.components.CameraButtonUIState
 import com.example.booky.viewmodel.BookyListVMl
 
 
@@ -30,7 +34,6 @@ import com.example.booky.viewmodel.BookyListVMl
 
 @OptIn(ExperimentalMaterial3Api::class)
 
-var listaLibros = listOf<BookCardData>()
 @Composable
 fun BookListScreen(
     vm: BookyListVMl = viewModel(),
@@ -51,9 +54,7 @@ fun BookListScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
+            Modifier.fillMaxSize()
         ) {
             // Encabezado superior
             Row(
@@ -97,7 +98,9 @@ fun BookListScreen(
             ) {
                 items(libros.size) { index ->
                     val libro = libros[index]
+                    //Llamo al componente de la carta de libro para que aparezca en el LZG
                     BookCard(
+                        //Llamo a la función que cree para los datos de los libros
                         data = bookModel2BookCard(
                             bm = libro,
                             onMarkAsReadClick = { onBookClick(libro.id) }
@@ -106,12 +109,21 @@ fun BookListScreen(
                 }
             }
         }
+        //Botón flotante de camara
+        CameraButton(
+            state = CameraButtonUIState(
+                onClick = onCameraClick
+            ),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        )
     }
 }
 
 
 
-
+//Funcion para los datos de los libros que llama a BookModel en seeder y devuelve los datos de cardData
 fun bookModel2BookCard(
     bm: BookModel,
     onMarkAsReadClick: () -> Unit = {}
@@ -127,8 +139,13 @@ fun bookModel2BookCard(
 
 @Preview(showBackground = true)
 @Composable
-fun BookListScreenPreview() {
+fun BookListWithScaffoldPreview() {
     BookyTheme {
-        BookListScreen()
+        AppScaffold {
+            BookListScreen(
+                onBookClick = {},
+                onCameraClick = {}
+            )
+        }
     }
 }

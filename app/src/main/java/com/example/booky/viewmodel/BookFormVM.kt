@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.example.booky.R
 import com.example.booky.seeder.GeneroLibro
+import com.example.booky.seeder.TipoPerfil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,8 @@ data class BookFormUiState(
     val aceptaTerminos: Boolean = false,
     val emailTouched: Boolean = false,
     val passwordTouched: Boolean = false,
-    val terminosTouched: Boolean = false
+    val terminosTouched: Boolean = false,
+    val tipoPerfil: TipoPerfil = TipoPerfil.LECTOR,
 ) {
     @get:StringRes
     private val emailError: Int?
@@ -84,6 +86,10 @@ class BookFormVM : ViewModel() {
 
     fun onTerminosChange(aceptado: Boolean) {
         _uiState.update { it.copy(aceptaTerminos = aceptado, terminosTouched = true) }
+    }
+
+    fun onTipoPerfilChange(nuevoTipo: TipoPerfil) {
+        _uiState.update { it.copy(tipoPerfil = nuevoTipo) }
     }
 
     fun onSave(): Boolean {
