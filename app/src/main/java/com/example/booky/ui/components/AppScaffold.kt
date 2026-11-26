@@ -29,8 +29,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,7 +51,8 @@ private val destinations = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
-    contenido: @Composable () -> Unit
+    onCameraClick: () -> Unit = {},
+    contenido: @Composable () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -128,6 +129,14 @@ fun AppScaffold(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        floatingActionButton = {
+            CameraButton(
+                state = CameraButtonUIState(
+                    onClick = onCameraClick
+                ),
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -135,6 +144,7 @@ fun AppScaffold(
                 .padding(innerPadding)
         ) {
             contenido()
+
         }
     }
 }

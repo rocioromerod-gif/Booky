@@ -26,7 +26,7 @@ fun MyNav(nav: NavHostController){
         composable<RutaBookList> {
             AppScaffold {
                 BookListScreen(
-                    onBookClick = { id->
+                    onBookClick = { id ->
                         nav.navigate(RutaBookDetail(identificador = id))
                     }
                 )

@@ -18,15 +18,12 @@ import com.example.booky.ui.components.BookSearchBar
 import com.example.booky.ui.components.SearchBarUiState
 import com.example.booky.ui.theme.BookyTheme
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.booky.R
 import com.example.booky.seeder.BookModel
 import com.example.booky.ui.components.AppScaffold
 import com.example.booky.ui.components.BookCardData
-import com.example.booky.ui.components.CameraButton
-import com.example.booky.ui.components.CameraButtonUIState
 import com.example.booky.viewmodel.BookyListVMl
 
 
@@ -39,7 +36,6 @@ fun BookListScreen(
     vm: BookyListVMl = viewModel(),
     onBookClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
-    onCameraClick: () -> Unit = {}
 ) {
 
     val state by vm.uiState.collectAsState()
@@ -109,15 +105,6 @@ fun BookListScreen(
                 }
             }
         }
-        //Botón flotante de camara
-        CameraButton(
-            state = CameraButtonUIState(
-                onClick = onCameraClick
-            ),
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        )
     }
 }
 
@@ -139,12 +126,12 @@ fun bookModel2BookCard(
 
 @Preview(showBackground = true)
 @Composable
-fun BookListWithScaffoldPreview() {
+fun BookListPreview() {
     BookyTheme {
+        //Añadir Scaffold para que salta el botton y el top bar
         AppScaffold {
             BookListScreen(
-                onBookClick = {},
-                onCameraClick = {}
+                onBookClick = {}
             )
         }
     }
