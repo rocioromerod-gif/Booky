@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,6 +42,7 @@ private data class BottomDestination(
     val icon: ImageVector
 )
 
+//navegaciones para la bottombar
 private val destinations = listOf(
     BottomDestination(R.string.lecturas_pendientes, Icons.Filled.Book),
     BottomDestination(R.string.libros_favoritos, Icons.Filled.Favorite),
@@ -74,20 +76,27 @@ fun AppScaffold(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        //Top bar que muestra el nombre de la app y un pequeño icono que muestra la version
         topBar = {
             TopAppBar(
                 modifier = Modifier.height(52.dp),
-                title = { Text(stringResource(R.string.booky)) },
+                title = { Text(
+                    text = stringResource(R.string.booky),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                        },
                 actions = {
                     IconButton(onClick = { showSnackbar(versionMessage) }) {
                         Icon(
-                            imageVector = Icons.Filled.Book,
+                            imageVector = Icons.Filled.Info,
                             contentDescription = stringResource(R.string.version)
                         )
                     }
                 }
             )
         },
+
+        //Boton de navegaciones, recorre la lista de navegaciones por indice
         bottomBar = {
             NavigationBar {
                 destinations.forEachIndexed { index, destination ->
@@ -101,12 +110,14 @@ fun AppScaffold(
                             selected = index
                             showSnackbar(snackbarMessage)
                         },
+                        //Aqui muestra el icono que hayamos declarado arriba
                         icon = {
                             Icon(
                                 imageVector = destination.icon,
                                 contentDescription = stringResource(destination.labelRes)
                             )
                         },
+                        //Muestra el texto declarado arriba
                         label = {
                             Text(
                             text = stringResource(destination.labelRes),
