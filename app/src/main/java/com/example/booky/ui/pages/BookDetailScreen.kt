@@ -97,9 +97,7 @@ fun BookDetailScreen(
             state = BookReviewUiState(
                 reviewText = state.textoReview,
                 //Esto cambia el texto si se modifica la reseña
-                onReviewChanged = { nuevoTexto ->
-                    vm.onReviewChanged(nuevoTexto)
-                },
+                onReviewChanged = vm :: onReviewChanged,
             )
         )
 

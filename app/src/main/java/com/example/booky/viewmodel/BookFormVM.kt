@@ -92,7 +92,7 @@ class BookFormVM : ViewModel() {
         _uiState.update { it.copy(tipoPerfil = nuevoTipo) }
     }
 
-    fun onSave(): Boolean {
+    fun onLogin(): Boolean {
         val current = _uiState.value
         if (!current.isValid) {
             _uiState.update {

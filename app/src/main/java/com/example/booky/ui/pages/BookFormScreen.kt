@@ -237,15 +237,13 @@ fun BookFormScreen(
         //Botón de guardar datos y entrar
         Button(
             onClick = {
-                if (vm.onSave()) onSaved()
+                if (vm.onLogin()) onSaved() //vm.onLogin para guardar (vmForm) y onSave() para ejecutar(navegar)
             },
 
             enabled = state.isValid,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.onTertiary,
-                contentColor = Color(0xFF272324),
-                disabledContainerColor = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.55f)
+                contentColor = Color(0xFF272324)
             ),
             modifier = Modifier
                 .fillMaxWidth()
