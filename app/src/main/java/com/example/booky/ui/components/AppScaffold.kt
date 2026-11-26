@@ -51,6 +51,7 @@ private val destinations = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
+    //Parametro para que funcione la camara
     onCameraClick: () -> Unit = {},
     contenido: @Composable () -> Unit,
 ) {
@@ -129,6 +130,7 @@ fun AppScaffold(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        //El FAB de la camara, por material design, lo coloca automaticamente en la esquina abajo derecha
         floatingActionButton = {
             CameraButton(
                 state = CameraButtonUIState(
